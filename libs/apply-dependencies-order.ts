@@ -64,7 +64,16 @@ module.exports = function (moduleDef:any, options:any, callback:Function) {
     });
 
     _.each(dependencyStatementJS, function (dependency:any):void {
-        // set the dependencyselector
+        if (!dependency.injectionLineSelectorJS) {
+            switch (dependency.dependencies) {
+                case '/jquery.js':
+                    dependency.injectionLineSelectorJS = "'js/dependencies/jquery/jquery.js',";
+                    break;
+                case '/angular.js':
+                    dependency.injectionLineSelectorJS = "'js/dependencies/angular/angular.js',";
+                    break;
+            }
+        }
     });
 
     dependencyStatementJS.push({
