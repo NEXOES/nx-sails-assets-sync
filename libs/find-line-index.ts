@@ -27,9 +27,8 @@ module.exports = function (lines:Array<string>, dependencyDef:any, defaultSelect
         return line.indexOf(selector) > -1;
     }));
 
-    if (dependency && dependency.injectionLineSelectorJS && dependency.injectionLineSelectorJS.offset) {
-        result += dependency.injectionLineSelectorJS.offset;
-    }
+    var offset:number = <number>_.get(dependency, 'injectionLineSelectorJS.offset') || 0;
+    result += offset;
 
     return result;
 };

@@ -17,9 +17,8 @@ module.exports = function (lines, dependencyDef, defaultSelector) {
         // TODO Should be refactored to support arrays by traversing all lines looking for the dependency with the highest line number
         return line.indexOf(selector) > -1;
     }));
-    if (dependency && dependency.injectionLineSelectorJS && dependency.injectionLineSelectorJS.offset) {
-        result += dependency.injectionLineSelectorJS.offset;
-    }
+    var offset = _.get(dependency, 'injectionLineSelectorJS.offset') || 0;
+    result += offset;
     return result;
 };
 //# sourceMappingURL=find-line-index.js.map

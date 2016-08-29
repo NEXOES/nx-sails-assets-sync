@@ -7,7 +7,6 @@ var _:any = require('lodash');
 
 module.exports = function (moduleDef:any, options:any, callback:Function) {
 
-    // var appRoot = path.join(cwd, '../../../');
     var appRoot = require('nx-app-root-path').path;
     var appDependencyRoot:string = path.join(appRoot, options.sourceDir);
     var clientDestinationRoot:string = path.join(appRoot, options.targetDir);
@@ -31,7 +30,7 @@ module.exports = function (moduleDef:any, options:any, callback:Function) {
 
                             // we just assume the default nature of a javascript lib as a single js file named after the library
                             var target:string = path.join(appDependencyRoot, name, name + '.js');
-                            var destination:string = path.join(clientDestinationRoot, name, name + '.js');
+                            var destination:string = path.join(clientDestinationRoot, 'js', name, name + '.js');
 
                             filesToDeploy.push({target: target, destination: destination});
                         }
@@ -43,7 +42,8 @@ module.exports = function (moduleDef:any, options:any, callback:Function) {
                                 var normalizeFilename:any = require('../libs/normalize-filename');
                                 var normalisedFile:string = normalizeFilename(file);
 
-                                var destination:string = path.join(clientDestinationRoot, name, normalisedFile);
+                                var fileType:string = path.extname(normalisedFile).replace('.', '');
+                                var destination:string = path.join(clientDestinationRoot, fileType, name, normalisedFile);
 
                                 filesToDeploy.push({target: target, destination: destination});
                             });

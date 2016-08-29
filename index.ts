@@ -30,7 +30,7 @@ module.exports = function NXConvexConfig(sails:ISailsServer):ISailsHook {
             this.sails = sails;
 
             var configPath:string = path.join(__dirname, 'config');
-            var appConfig:ISailsHookDefaults = <ISailsHookDefaults>_.get(sails.config, NAME);
+            var appConfig:ISailsHookDefaults = <ISailsHookDefaults>_.get(sails, NAME);
             var defaults:ISailsHookDefaults = require(configPath);
             var config:ISailsHookDefaults = _.assign({}, defaults, appConfig);
 
@@ -65,7 +65,9 @@ module.exports = function NXConvexConfig(sails:ISailsServer):ISailsHook {
 
                     function (nextAction:Function):void {
 
-                        var clientDependenciesSourceDir:string = path.join(__dirname, $this.config.sourceDir);
+                        var appRoot:string = require('nx-app-root-path').path;
+
+                        var clientDependenciesSourceDir:string = path.join(appRoot, $this.config.sourceDir);
                         var ClientDependencies:Function = require(path.join(__dirname, 'libs/client-dependencies'));
                         ClientDependencies(clientDependenciesSourceDir)
                             .then(function (clientDependencies:Array<string>) {
@@ -91,7 +93,7 @@ module.exports = function NXConvexConfig(sails:ISailsServer):ISailsHook {
                                             var applyDependenciesToPipeline = require(path.join(__dirname, 'libs/apply-dependencies-order'));
                                             applyDependenciesToPipeline(clientDependency, $this.config, function ():void {
                                                 nextClientDependencyAction();
-                                            })
+                                            });
                                         }
                                         ,
                                         function(nextClientDependencyAction:Function) : void {
@@ -99,7 +101,7 @@ module.exports = function NXConvexConfig(sails:ISailsServer):ISailsHook {
                                             var deployDependencies = require(path.join(__dirname, 'libs/deploy-dependencies'));
                                             deployDependencies(clientDependency, $this.config, function ():void {
                                                 nextClientDependencyAction();
-                                            })
+                                            });
                                         }
                                     ],
                                     function(err:Error) : void {

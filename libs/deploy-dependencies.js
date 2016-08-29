@@ -4,7 +4,6 @@ var async = require('async');
 var fse = require('fs-extra');
 var _ = require('lodash');
 module.exports = function (moduleDef, options, callback) {
-    // var appRoot = path.join(cwd, '../../../');
     var appRoot = require('nx-app-root-path').path;
     var appDependencyRoot = path.join(appRoot, options.sourceDir);
     var clientDestinationRoot = path.join(appRoot, options.targetDir);
@@ -18,7 +17,7 @@ module.exports = function (moduleDef, options, callback) {
                 if (!dependency.files) {
                     // we just assume the default nature of a javascript lib as a single js file named after the library
                     var target = path.join(appDependencyRoot, name, name + '.js');
-                    var destination = path.join(clientDestinationRoot, name, name + '.js');
+                    var destination = path.join(clientDestinationRoot, 'js', name, name + '.js');
                     filesToDeploy.push({ target: target, destination: destination });
                 }
                 else {
@@ -26,7 +25,8 @@ module.exports = function (moduleDef, options, callback) {
                         var target = path.join(appDependencyRoot, name, file);
                         var normalizeFilename = require('../libs/normalize-filename');
                         var normalisedFile = normalizeFilename(file);
-                        var destination = path.join(clientDestinationRoot, name, normalisedFile);
+                        var fileType = path.extname(normalisedFile).replace('.', '');
+                        var destination = path.join(clientDestinationRoot, fileType, name, normalisedFile);
                         filesToDeploy.push({ target: target, destination: destination });
                     });
                 }

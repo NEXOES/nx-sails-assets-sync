@@ -4,6 +4,6 @@
 module.exports = {
     timeout: 15000,
     sourceDir: 'node_modules',
-    targetDir: 'assets/dependencies',
+    targetDir: 'assets',
     tasksDir: 'tasks'
 };

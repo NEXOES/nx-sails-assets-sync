@@ -13,7 +13,7 @@ module.exports = function NXConvexConfig(sails) {
             console.log(NAME + ' defaults...');
             this.sails = sails;
             var configPath = path.join(__dirname, 'config');
-            var appConfig = _.get(sails.config, NAME);
+            var appConfig = _.get(sails, NAME);
             var defaults = require(configPath);
             var config = _.assign({}, defaults, appConfig);
             this.defaults = config;
@@ -33,7 +33,8 @@ module.exports = function NXConvexConfig(sails) {
             console.log(NAME + ' initialize...');
             async.waterfall([
                 function (nextAction) {
-                    var clientDependenciesSourceDir = path.join(__dirname, $this.config.sourceDir);
+                    var appRoot = require('nx-app-root-path').path;
+                    var clientDependenciesSourceDir = path.join(appRoot, $this.config.sourceDir);
                     var ClientDependencies = require(path.join(__dirname, 'libs/client-dependencies'));
                     ClientDependencies(clientDependenciesSourceDir)
                         .then(function (clientDependencies) {
