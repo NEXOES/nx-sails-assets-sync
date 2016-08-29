@@ -30,7 +30,7 @@ module.exports = function (moduleDef:any, options:any, callback:Function) {
 
                             // we just assume the default nature of a javascript lib as a single js file named after the library
                             var target:string = path.join(appDependencyRoot, name, name + '.js');
-                            var destination:string = path.join(clientDestinationRoot, 'js', name, name + '.js');
+                            var destination:string = path.join(clientDestinationRoot, 'js', 'dependencies', name, name + '.js');
 
                             filesToDeploy.push({target: target, destination: destination});
                         }
@@ -43,7 +43,7 @@ module.exports = function (moduleDef:any, options:any, callback:Function) {
                                 var normalisedFile:string = normalizeFilename(file);
 
                                 var fileType:string = path.extname(normalisedFile).replace('.', '');
-                                var destination:string = path.join(clientDestinationRoot, fileType, name, normalisedFile);
+                                var destination:string = path.join(clientDestinationRoot, fileType, 'dependencies', name, normalisedFile);
 
                                 filesToDeploy.push({target: target, destination: destination});
                             });

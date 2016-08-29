@@ -17,7 +17,7 @@ module.exports = function (moduleDef, options, callback) {
                 if (!dependency.files) {
                     // we just assume the default nature of a javascript lib as a single js file named after the library
                     var target = path.join(appDependencyRoot, name, name + '.js');
-                    var destination = path.join(clientDestinationRoot, 'js', name, name + '.js');
+                    var destination = path.join(clientDestinationRoot, 'js', 'dependencies', name, name + '.js');
                     filesToDeploy.push({ target: target, destination: destination });
                 }
                 else {
@@ -26,7 +26,7 @@ module.exports = function (moduleDef, options, callback) {
                         var normalizeFilename = require('../libs/normalize-filename');
                         var normalisedFile = normalizeFilename(file);
                         var fileType = path.extname(normalisedFile).replace('.', '');
-                        var destination = path.join(clientDestinationRoot, fileType, name, normalisedFile);
+                        var destination = path.join(clientDestinationRoot, fileType, 'dependencies', name, normalisedFile);
                         filesToDeploy.push({ target: target, destination: destination });
                     });
                 }
