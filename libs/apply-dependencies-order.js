@@ -5,7 +5,7 @@ var async = require('async');
 var fs = require('fs');
 module.exports = function (moduleDef, options, callback) {
     var loadLib = function (libName) {
-        return require(path.join(appRoot, 'libs', libName));
+        return require(path.join(appRoot, 'node_modules', 'nx-sails-assets-sync', 'libs', libName));
     };
     var dependencies = moduleDef.clientDependencies;
     var cwd = path.join(__dirname);
@@ -44,14 +44,14 @@ module.exports = function (moduleDef, options, callback) {
     dependencyStatementJS = _.filter(dependencyStatementJS, function (dependency) {
         return _.endsWith(dependency.ref, '.js');
     });
-    _.each(dependencyStatementJS, function (dependency) {
-        if (!dependency.injectionLineSelectorJS) {
-            switch (dependency.dependencies) {
+    _.each(dependencyStatementJS, function (dependencyDef) {
+        if (!dependencyDef.dependency.injectionLineSelectorJS) {
+            switch (dependencyDef.dependency.dependencies) {
                 case '/jquery.js':
-                    dependency.injectionLineSelectorJS = "'js/dependencies/jquery/jquery.js',";
+                    dependencyDef.dependency.injectionLineSelectorJS = "'js/dependencies/jquery/jquery.js',";
                     break;
                 case '/angular.js':
-                    dependency.injectionLineSelectorJS = "'js/dependencies/angular/angular.js',";
+                    dependencyDef.dependency.injectionLineSelectorJS = "'js/dependencies/angular/angular.js',";
                     break;
             }
         }
