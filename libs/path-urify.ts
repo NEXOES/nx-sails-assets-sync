@@ -1,4 +1,4 @@
-/// <reference path="../typings/main.d.ts" />
+/// <reference path="../typings/index.d.ts" />
 
 module.exports = function (path:string):string {
     return path.replace(/\\/g, '/')
