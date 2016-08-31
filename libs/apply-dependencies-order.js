@@ -33,6 +33,9 @@ module.exports = function (moduleDef, options, callback) {
         }
         else {
             _.each(_.reverse(dependency.files), function (file) {
+                if (!_.endsWith(file, '.js')) {
+                    return;
+                }
                 var normalizeFilename = loadLib('normalize-filename');
                 var normalisedFile = normalizeFilename(file);
                 var scriptRef = path.join(assetsRoot, name, normalisedFile);

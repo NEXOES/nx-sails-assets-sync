@@ -48,6 +48,10 @@ module.exports = function (moduleDef:any, options:any, callback:Function) {
         else {
             _.each(_.reverse(dependency.files), function (file:string):void {
 
+                if(!_.endsWith(file, '.js')) {
+                    return;
+                }
+
                 var normalizeFilename:any = loadLib('normalize-filename');
                 var normalisedFile:string = normalizeFilename(file);
 
