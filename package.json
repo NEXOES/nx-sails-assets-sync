@@ -27,5 +27,5 @@
   "private": false,
   "publishConfig": {
     "registry": "http://localhost:4873"
-  },
+  }
 }
