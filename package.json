@@ -24,8 +24,8 @@
     "angular": "^1.5.8",
     "jquery": "^3.1.0"
   },
-  "private": false,
+  "private": true,
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://localhost:4873"
   }
 }
