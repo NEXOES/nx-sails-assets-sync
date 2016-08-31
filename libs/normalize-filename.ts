@@ -7,7 +7,7 @@ module.exports = function(fileName:string) : string {
         .replace('release', '');
 
     if(result.indexOf('src') > -1 && result.indexOf('src.') == -1) {
-        result = result.replace('/src', '');
+        result = result.replace('src/', '');
     }
 
     return result;
