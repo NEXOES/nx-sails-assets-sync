@@ -64,9 +64,12 @@ module.exports = function (moduleDef:any, options:any, callback:Function) {
                     function (file:{target:string, destination:string}, nextFile:Function):void {
                         fse.copy(file.target, file.destination, function (err:Error):void {
                             if (!err) {
+                                console.log(file.target +' --> '+ file.destination +'... success !');
                                 nextFile(null, file);
                             }
                             else {
+                                console.error('Client Asset Sync... '+ file.target +' --> '+ file.destination);
+                                console.error(err);
                                 nextFile(err);
                             }
                         })

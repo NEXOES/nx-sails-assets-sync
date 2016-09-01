@@ -39,9 +39,12 @@ module.exports = function (moduleDef, options, callback) {
             async.mapSeries(filesToDeploy, function (file, nextFile) {
                 fse.copy(file.target, file.destination, function (err) {
                     if (!err) {
+                        console.log(file.target + ' --> ' + file.destination + '... success !');
                         nextFile(null, file);
                     }
                     else {
+                        console.error('Client Asset Sync... ' + file.target + ' --> ' + file.destination);
+                        console.error(err);
                         nextFile(err);
                     }
                 });
