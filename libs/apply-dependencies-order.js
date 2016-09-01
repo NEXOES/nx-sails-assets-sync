@@ -148,7 +148,6 @@ module.exports = function (moduleDef, options, callback) {
                     console.log('Dependency being injected... ' + dependencyLineRef);
                 }
                 else {
-                    console.log('Dependency already injected, leaving as is...');
                 }
             }
             ;
@@ -166,7 +165,6 @@ module.exports = function (moduleDef, options, callback) {
                     console.log('Dependency being injected... ' + dependencyLineRef);
                 }
                 else {
-                    console.log('Dependency already injected, leaving as is...');
                 }
             }
             ;

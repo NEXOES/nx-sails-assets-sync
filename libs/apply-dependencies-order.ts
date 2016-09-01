@@ -190,7 +190,7 @@ module.exports = function (moduleDef:any, options:any, callback:Function) {
                     console.log('Dependency being injected... ' + dependencyLineRef);
                 }
                 else {
-                    console.log('Dependency already injected, leaving as is...')
+                    // console.log('Dependency already injected, leaving as is...')
                 }
             }
             ;
@@ -216,7 +216,7 @@ module.exports = function (moduleDef:any, options:any, callback:Function) {
                     console.log('Dependency being injected... ' + dependencyLineRef);
                 }
                 else {
-                    console.log('Dependency already injected, leaving as is...')
+                    // console.log('Dependency already injected, leaving as is...')
                 }
             }
             ;
