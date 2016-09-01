@@ -25,8 +25,9 @@ module.exports = function (moduleDef, options, callback) {
                         var target = path.join(appDependencyRoot, name, file);
                         var normalizeFilename = require('../libs/normalize-filename');
                         var normalisedFile = normalizeFilename(file);
-                        var fileType = path.extname(normalisedFile).replace('.', '');
-                        var destination = path.join(clientDestinationRoot, fileType, 'dependencies', name, normalisedFile);
+                        var determineAssetSection = require('../libs/determine-asset-section');
+                        var assetSection = determineAssetSection(normalisedFile);
+                        var destination = path.join(clientDestinationRoot, assetSection, 'dependencies', name, normalisedFile);
                         filesToDeploy.push({ target: target, destination: destination });
                     });
                 }

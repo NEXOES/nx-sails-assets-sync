@@ -42,8 +42,10 @@ module.exports = function (moduleDef:any, options:any, callback:Function) {
                                 var normalizeFilename:any = require('../libs/normalize-filename');
                                 var normalisedFile:string = normalizeFilename(file);
 
-                                var fileType:string = path.extname(normalisedFile).replace('.', '');
-                                var destination:string = path.join(clientDestinationRoot, fileType, 'dependencies', name, normalisedFile);
+                                var determineAssetSection:any = require('../libs/determine-asset-section');
+                                var assetSection:string = determineAssetSection(normalisedFile);
+
+                                var destination:string = path.join(clientDestinationRoot, assetSection, 'dependencies', name, normalisedFile);
 
                                 filesToDeploy.push({target: target, destination: destination});
                             });
