@@ -1,6 +1,6 @@
 {
   "name": "nx-sails-assets-sync",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "nx-sails-assets-sync",
   "main": "index.js",
   "scripts": {
