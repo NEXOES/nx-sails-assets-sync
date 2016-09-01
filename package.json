@@ -26,6 +26,6 @@
   },
   "private": false,
   "publishConfig": {
-    "registry": "http://localhost:4873"
+    "registry": "https://registry.npmjs.org/"
   }
 }
