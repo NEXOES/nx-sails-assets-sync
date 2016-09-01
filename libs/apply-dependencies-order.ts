@@ -155,6 +155,7 @@ module.exports = function (moduleDef:any, options:any, callback:Function) {
         }
     });
 
+    // SELECT ONLY CSS
     dependencyStatementCSS = _.filter(dependencyStatementCSS, function (dependency:any):boolean {
         return _.endsWith(dependency.ref, '.css');
     });

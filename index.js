@@ -45,6 +45,7 @@ module.exports = function NXConvexConfig(sails) {
                         nextAction(null, clientDependencies);
                     })
                         .catch(function (err) {
+                        console.error(err);
                         nextAction(err);
                     });
                 },
@@ -64,7 +65,7 @@ module.exports = function NXConvexConfig(sails) {
                                 });
                             }
                         ], function (err) {
-                            // console.log(err);
+                            console.error(err);
                             nextClientDependency();
                         });
                     }, function (err) {

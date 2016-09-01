@@ -125,6 +125,7 @@ module.exports = function (moduleDef, options, callback) {
             });
         }
     });
+    // SELECT ONLY CSS
     dependencyStatementCSS = _.filter(dependencyStatementCSS, function (dependency) {
         return _.endsWith(dependency.ref, '.css');
     });

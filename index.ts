@@ -79,6 +79,7 @@ module.exports = function NXConvexConfig(sails:ISailsServer):ISailsHook {
                                 nextAction(null, clientDependencies);
                             })
                             .catch(function (err:Error) {
+                                console.error(err);
                                 nextAction(err);
                             });
                     }
@@ -110,7 +111,7 @@ module.exports = function NXConvexConfig(sails:ISailsServer):ISailsHook {
                                         }
                                     ],
                                     function (err:Error):void {
-                                        // console.log(err);
+                                        console.error(err);
                                         nextClientDependency();
                                     }
                                 );
