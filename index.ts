@@ -60,7 +60,7 @@ module.exports = function NXConvexConfig(sails:ISailsServer):ISailsHook {
 
             if (!_.isUndefined($this.config.enabled) && $this.config.enabled == false) {
                 console.log(NAME + ' is disabled... not initializing...');
-                return;
+                return done();
             }
 
             console.log(NAME + ' initialize...');

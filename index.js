@@ -32,7 +32,7 @@ module.exports = function NXConvexConfig(sails) {
             var $this = this;
             if (!_.isUndefined($this.config.enabled) && $this.config.enabled == false) {
                 console.log(NAME + ' is disabled... not initializing...');
-                return;
+                return done();
             }
             console.log(NAME + ' initialize...');
             async.waterfall([
