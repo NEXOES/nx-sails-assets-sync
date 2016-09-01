@@ -58,6 +58,11 @@ module.exports = function NXConvexConfig(sails:ISailsServer):ISailsHook {
         initialize: function (done:Function):void {
             var $this:ISailsHook = this;
 
+            if (!_.isUndefined($this.config.enabled) && $this.config.enabled == false) {
+                console.log(NAME + ' is disabled... not initializing...');
+                return;
+            }
+
             console.log(NAME + ' initialize...');
 
             async.waterfall(
@@ -88,7 +93,7 @@ module.exports = function NXConvexConfig(sails:ISailsServer):ISailsHook {
 
                                 async.series(
                                     [
-                                        function(nextClientDependencyAction:Function) : void {
+                                        function (nextClientDependencyAction:Function):void {
 
                                             var applyDependenciesToPipeline = require(path.join(__dirname, 'libs/apply-dependencies-order'));
                                             applyDependenciesToPipeline(clientDependency, $this.config, function ():void {
@@ -96,7 +101,7 @@ module.exports = function NXConvexConfig(sails:ISailsServer):ISailsHook {
                                             });
                                         }
                                         ,
-                                        function(nextClientDependencyAction:Function) : void {
+                                        function (nextClientDependencyAction:Function):void {
 
                                             var deployDependencies = require(path.join(__dirname, 'libs/deploy-dependencies'));
                                             deployDependencies(clientDependency, $this.config, function ():void {
@@ -104,7 +109,7 @@ module.exports = function NXConvexConfig(sails:ISailsServer):ISailsHook {
                                             });
                                         }
                                     ],
-                                    function(err:Error) : void {
+                                    function (err:Error):void {
                                         // console.log(err);
                                         nextClientDependency();
                                     }
