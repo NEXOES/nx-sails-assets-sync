@@ -10,7 +10,7 @@ module.exports = function(fileName:string) : string {
 
     switch(fileType) {
 
-        case 'htmnl':
+        case 'html':
             result = 'templates';
             break;
 

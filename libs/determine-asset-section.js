@@ -4,7 +4,7 @@ module.exports = function (fileName) {
     var result;
     var fileType = path.extname(fileName).replace('.', '');
     switch (fileType) {
-        case 'htmnl':
+        case 'html':
             result = 'templates';
             break;
         case 'css':
