@@ -21,13 +21,16 @@ module.exports = function (moduleDef:any, options:any, callback:Function) {
             ,
             function (next:Function):void {
                 require(path.join(moduleRoot, 'libs', 'deploy-binaries-images'))(moduleDef, options, next);
-            },
+            }
+            ,
             function (next:Function):void {
                 require(path.join(moduleRoot, 'libs', 'deploy-binaries-fonts'))(moduleDef, options, next);
-            },
+            }
+            ,
             function (next:Function):void {
                 require(path.join(moduleRoot, 'libs', 'deploy-binaries-templates'))(moduleDef, options, next);
-            },
+            }
+            ,
             function (next:Function):void {
                 require(path.join(moduleRoot, 'libs', 'deploy-binaries-sounds'))(moduleDef, options, next);
             }
