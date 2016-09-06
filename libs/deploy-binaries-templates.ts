@@ -42,12 +42,24 @@ module.exports = function (moduleDef:any, options:any, callback:Function):void {
             ,
             function (next:Function):void {
 
-                var copyOptions:any = {
-                    filter: /\.(html)$/i
-                };
+                var fileTypesExpr:string = 'html';
 
-                fse.copy(clientSourcePath, clientDestinationPath, copyOptions, function (err:Error):void {
-                    next(err);
+                function copyFunc(done:Function) {
+                    gulp
+                        .src(clientSourcePath + '/**/*.+('+ fileTypesExpr +')')
+                        .pipe(
+                            gulp
+                                .dest(clientDestinationPath)
+                                .on('end', function () {
+                                        if (done) {
+                                            done();
+                                        }
+                                    }
+                                )
+                        );
+                }
+                copyFunc(function () {
+                    next();
                 });
             }
         ],
@@ -56,7 +68,7 @@ module.exports = function (moduleDef:any, options:any, callback:Function):void {
                 notify(moduleDef.name + ' client templates successfully installed into... ' + clientDestinationPath);
             }
             else {
-                notify('stengg-foundation templates could not be installed into... ' + clientDestinationPath);
+                notify(moduleDef.name +' client templates could not be installed into... ' + clientDestinationPath);
             }
             callback(err);
         }

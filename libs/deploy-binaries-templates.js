@@ -30,11 +30,20 @@ module.exports = function (moduleDef, options, callback) {
             });
         },
         function (next) {
-            var copyOptions = {
-                filter: /\.(html)$/i
-            };
-            fse.copy(clientSourcePath, clientDestinationPath, copyOptions, function (err) {
-                next(err);
+            var fileTypesExpr = 'html';
+            function copyFunc(done) {
+                gulp
+                    .src(clientSourcePath + '/**/*.+(' + fileTypesExpr + ')')
+                    .pipe(gulp
+                    .dest(clientDestinationPath)
+                    .on('end', function () {
+                    if (done) {
+                        done();
+                    }
+                }));
+            }
+            copyFunc(function () {
+                next();
             });
         }
     ], function (err) {
@@ -42,7 +51,7 @@ module.exports = function (moduleDef, options, callback) {
             notify(moduleDef.name + ' client templates successfully installed into... ' + clientDestinationPath);
         }
         else {
-            notify('stengg-foundation templates could not be installed into... ' + clientDestinationPath);
+            notify(moduleDef.name + ' client templates could not be installed into... ' + clientDestinationPath);
         }
         callback(err);
     });
