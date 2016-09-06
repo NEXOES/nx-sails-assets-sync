@@ -8,15 +8,12 @@ var fs:any = require('fs');
 module.exports = function (moduleDef:any, options:any, callback:Function) {
 
     var loadLib = function (libName:string):any {
-        return require(path.join(appRoot, 'node_modules', 'nx-sails-assets-sync', 'libs', libName));
+        return require(path.join(__dirname, libName));
     };
 
     var dependencies = moduleDef.clientDependencies;
 
-    var cwd = path.join(__dirname);
-
-    // var appRoot = path.join(cwd, '../../../');mj
-    var appRoot = require('nx-app-root-path').path;
+    var appRoot = options.appRoot || require('nx-app-root-path').path;
     var tasksRoot = path.join(appRoot, options.tasksDir);
     var pipelineScriptPath:string = path.join(tasksRoot, 'pipeline.js');
     var pipelineIndentation:string = '  ';

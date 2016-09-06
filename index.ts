@@ -49,8 +49,17 @@ module.exports = function NXConvexConfig(sails:ISailsServer):ISailsHook {
             console.log(NAME + ' configure...');
 
             var appConfig:ISailsHookConfigure = <ISailsHookConfigure>_.get(this.sails.config, NAME);
-            var config:ISailsHookConfig = _.assign({}, this.defaults, appConfig);
+            var config:ISailsHookConfig = _.defaults(
+                {},
+                this.defaults,
+                appConfig
+            );
+            _.assign(config, {
+                appRootAbsolute: path.resolve( config.appRoot || require('nx-app-root-path').path )
+            });
 
+            this.timeout = config.timeout;
+            
             this.config = config;
         }
         ,
@@ -70,9 +79,7 @@ module.exports = function NXConvexConfig(sails:ISailsServer):ISailsHook {
 
                     function (nextAction:Function):void {
 
-                        var appRoot:string = require('nx-app-root-path').path;
-
-                        var clientDependenciesSourceDir:string = path.join(appRoot, $this.config.sourceDir);
+                        var clientDependenciesSourceDir:string = path.resolve(path.join($this.config.appRoot, $this.config.sourceDir));
                         var ClientDependencies:Function = require(path.join(__dirname, 'libs/client-dependencies'));
                         ClientDependencies(clientDependenciesSourceDir)
                             .then(function (clientDependencies:Array<string>) {
@@ -106,6 +113,14 @@ module.exports = function NXConvexConfig(sails:ISailsServer):ISailsHook {
 
                                             var deployDependencies = require(path.join(__dirname, 'libs/deploy-dependencies'));
                                             deployDependencies(clientDependency, $this.config, function ():void {
+                                                nextClientDependencyAction();
+                                            });
+                                        }
+                                        ,
+                                        function (nextClientDependencyAction:Function):void {
+
+                                            var deployBinaries = require(path.join(__dirname, 'libs/deploy-binaries'));
+                                            deployBinaries(clientDependency, $this.config, function ():void {
                                                 nextClientDependencyAction();
                                             });
                                         }

@@ -16,6 +16,7 @@
     "async": "^2.0.1",
     "bluebird": "^3.4.1",
     "fs-extra": "^0.30.0",
+    "gulp": "^3.9.1",
     "jquery": "^3.1.0",
     "lodash": "^4.15.0",
     "nx-app-root-path": "^1.2.2"

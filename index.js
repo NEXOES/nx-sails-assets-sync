@@ -25,7 +25,11 @@ module.exports = function NXConvexConfig(sails) {
             }
             console.log(NAME + ' configure...');
             var appConfig = _.get(this.sails.config, NAME);
-            var config = _.assign({}, this.defaults, appConfig);
+            var config = _.defaults({}, this.defaults, appConfig);
+            _.assign(config, {
+                appRootAbsolute: path.resolve(config.appRoot || require('nx-app-root-path').path)
+            });
+            this.timeout = config.timeout;
             this.config = config;
         },
         initialize: function (done) {
@@ -37,8 +41,7 @@ module.exports = function NXConvexConfig(sails) {
             console.log(NAME + ' initialize...');
             async.waterfall([
                 function (nextAction) {
-                    var appRoot = require('nx-app-root-path').path;
-                    var clientDependenciesSourceDir = path.join(appRoot, $this.config.sourceDir);
+                    var clientDependenciesSourceDir = path.resolve(path.join($this.config.appRoot, $this.config.sourceDir));
                     var ClientDependencies = require(path.join(__dirname, 'libs/client-dependencies'));
                     ClientDependencies(clientDependenciesSourceDir)
                         .then(function (clientDependencies) {
@@ -61,6 +64,12 @@ module.exports = function NXConvexConfig(sails) {
                             function (nextClientDependencyAction) {
                                 var deployDependencies = require(path.join(__dirname, 'libs/deploy-dependencies'));
                                 deployDependencies(clientDependency, $this.config, function () {
+                                    nextClientDependencyAction();
+                                });
+                            },
+                            function (nextClientDependencyAction) {
+                                var deployBinaries = require(path.join(__dirname, 'libs/deploy-binaries'));
+                                deployBinaries(clientDependency, $this.config, function () {
                                     nextClientDependencyAction();
                                 });
                             }
