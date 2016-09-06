@@ -3,21 +3,15 @@ var path = require('path');
 var _ = require('lodash');
 var async = require('async');
 var gulp = require('gulp');
+var fs = require('fs-extra');
 module.exports = function (moduleDef, options, callback) {
     var notify = console.log;
-    var onError = console.error;
-    var cwd = path.join(__dirname);
-    var appRoot = path.join(cwd, '../../../');
-    var stInstallerRoot = path.join(cwd, '../');
-    // local dependencies from installer
-    var fsePath = path.join(stInstallerRoot, 'node_modules', 'fs-extra');
-    var fse = require(fsePath);
-    var clientSourcePath = path.join(cwd, '../../', moduleDef.name, 'client/styles');
-    var clientDestinationRoot = path.join(appRoot, 'assets/styles/dependencies');
+    var clientSourcePath = path.join(options.appRootAbsolute, 'node_modules', moduleDef.name, 'client/js');
+    var clientDestinationRoot = path.join(options.appRootAbsolute, 'assets/js/dependencies');
     var clientDestinationPath = path.join(clientDestinationRoot, moduleDef.name);
     async.series([
         function (next) {
-            fse.access(clientSourcePath, fse.R_OK, function (err) {
+            fs.access(clientSourcePath, fs.R_OK, function (err) {
                 if (err) {
                     return callback();
                 }
@@ -25,7 +19,7 @@ module.exports = function (moduleDef, options, callback) {
             });
         },
         function (next) {
-            fse.ensureDir(clientDestinationPath, function (err) {
+            fs.ensureDir(clientDestinationPath, function (err) {
                 next(err);
             });
         },
