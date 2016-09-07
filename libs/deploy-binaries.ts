@@ -34,6 +34,10 @@ module.exports = function (moduleDef:any, options:any, callback:Function) {
             function (next:Function):void {
                 require(path.join(moduleRoot, 'libs', 'deploy-binaries-sounds'))(moduleDef, options, next);
             }
+            ,
+            function (next:Function):void {
+                require(path.join(moduleRoot, 'libs', 'deploy-binaries-data'))(moduleDef, options, next);
+            }
         ],
         function (err:Error):void {
             callback(err);
