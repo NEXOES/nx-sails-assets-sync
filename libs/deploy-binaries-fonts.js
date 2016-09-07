@@ -6,11 +6,8 @@ var fse = require('fs-extra');
 var gulp = require('gulp');
 module.exports = function (moduleDef, options, callback) {
     var notify = console.log;
-    var onError = console.error;
-    var cwd = path.join(__dirname);
-    var appRoot = path.join(cwd, '../../../');
-    var clientSourcePath = path.join(cwd, '../../', moduleDef.name, 'client/fonts');
-    var clientDestinationRoot = path.join(appRoot, 'assets/fonts/dependencies');
+    var clientSourcePath = path.join(options.appRootAbsolute, 'node_modules', moduleDef.name, 'client/fonts');
+    var clientDestinationRoot = path.join(options.appRootAbsolute, 'assets/fonts/dependencies');
     var clientDestinationPath = path.join(clientDestinationRoot, moduleDef.name);
     async.series([
         function (next) {

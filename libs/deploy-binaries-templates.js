@@ -6,8 +6,8 @@ var gulp = require('gulp');
 var fs = require('fs-extra');
 module.exports = function (moduleDef, options, callback) {
     var notify = console.log;
-    var clientSourcePath = path.join(options.appRootAbsolute, 'node_modules', moduleDef.name, 'client/js');
-    var clientDestinationRoot = path.join(options.appRootAbsolute, 'assets/js/dependencies');
+    var clientSourcePath = path.join(options.appRootAbsolute, 'node_modules', moduleDef.name, 'client/templates');
+    var clientDestinationRoot = path.join(options.appRootAbsolute, 'assets/templates/dependencies');
     var clientDestinationPath = path.join(clientDestinationRoot, moduleDef.name);
     async.series([
         function (next) {

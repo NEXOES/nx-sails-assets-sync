@@ -9,13 +9,9 @@ var gulp:any = require('gulp');
 module.exports = function (moduleDef:any, options:any, callback:Function):void {
 
     var notify:Function = console.log;
-    var onError:Function = console.error;
 
-    var cwd = path.join(__dirname);
-    var appRoot = path.join(cwd, '../../../');
-
-    var clientSourcePath:string = path.join(cwd, '../../', moduleDef.name, 'client/fonts');
-    var clientDestinationRoot:string = path.join(appRoot, 'assets/fonts/dependencies');
+    var clientSourcePath:string = path.join(options.appRootAbsolute, 'node_modules', moduleDef.name, 'client/fonts');
+    var clientDestinationRoot:string = path.join(options.appRootAbsolute, 'assets/fonts/dependencies');
     var clientDestinationPath:string = path.join(clientDestinationRoot, moduleDef.name);
 
     async.series(

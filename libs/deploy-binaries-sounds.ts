@@ -10,8 +10,8 @@ module.exports = function (moduleDef:any, options:any, callback:Function):void {
 
     var notify:Function = console.log;
 
-    var clientSourcePath:string = path.join(options.appRootAbsolute, 'node_modules', moduleDef.name, 'client/js');
-    var clientDestinationRoot:string = path.join(options.appRootAbsolute, 'assets/js/dependencies');
+    var clientSourcePath:string = path.join(options.appRootAbsolute, 'node_modules', moduleDef.name, 'client/sounds');
+    var clientDestinationRoot:string = path.join(options.appRootAbsolute, 'assets/sounds/dependencies');
     var clientDestinationPath:string = path.join(clientDestinationRoot, moduleDef.name);
 
     async.series(
