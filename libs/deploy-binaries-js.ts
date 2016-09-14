@@ -2,7 +2,7 @@
 
 var path:any = require('path');
 var fs:any = require('fs-extra');
-var _:any = require('lodash');
+var _:_.LoDashStatic = require('lodash');
 var gulp:any = require('gulp');
 var async:Async = require('async');
 

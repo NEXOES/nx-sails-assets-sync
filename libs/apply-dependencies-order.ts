@@ -1,6 +1,6 @@
 /// <reference path="../typings/index.d.ts" />
 
-var _:any = require('lodash');
+var _:_.LoDashStatic = require('lodash');
 var path:any = require('path');
 var async:Async = require('async');
 var fs:any = require('fs');
@@ -13,13 +13,15 @@ module.exports = function (moduleDef:any, options:any, callback:Function) {
 
     var dependencies = moduleDef.clientDependencies;
 
+    var determineAssetSection:Function = loadLib('determine-asset-section');
+
     var appRoot = options.appRoot || require('nx-app-root-path').path;
     var tasksRoot = path.join(appRoot, options.tasksDir);
     var pipelineScriptPath:string = path.join(tasksRoot, 'pipeline.js');
     var pipelineIndentation:string = '  ';
     var searchPatternJS:string = dependencies.injectionLineSelectorJS || '// Dependencies like jQuery, or Angular are brought in here';
     var searchPatternCSS:string = dependencies.injectionLineSelectorCSS || 'var cssFilesToInject = [';
-    var assetsRoot:string = 'js/dependencies';
+    var assetsRoot:string = '';
 
     var dependencyStatementJS:Array<any> = [];
     var dependencyStatementCSS:Array<any> = [];
@@ -37,7 +39,7 @@ module.exports = function (moduleDef:any, options:any, callback:Function) {
 
         if (!dependency.files) {
 
-            var scriptRef:string = path.join(assetsRoot, name, name + '.js');
+            var scriptRef:string = path.join('js/dependencies', name, name + '.js');
             scriptRef = pathUrify(scriptRef);
 
             dependencyStatementJS.push({dependency: dependency, ref: scriptRef})
@@ -81,7 +83,7 @@ module.exports = function (moduleDef:any, options:any, callback:Function) {
         dependency: {
             injectionLineSelectorJS: {value: '// All of the rest of your client-side js files', offset: -2}
         },
-        ref: 'js/dependencies/**/*.js'
+        ref: 'js/dependencies/**/*.core.js'
     });
     dependencyStatementJS.push({
         dependency: {
@@ -120,19 +122,6 @@ module.exports = function (moduleDef:any, options:any, callback:Function) {
         ref: 'js/**/*.run.js'
     });
 
-    dependencyStatementCSS.push({
-        dependency: {
-            injectionLineSelectorCSS: {value: searchPatternCSS, offset: -1}
-        },
-        ref: 'js/**/*.css',
-    });
-    dependencyStatementCSS.push({
-        dependency: {
-            injectionLineSelectorCSS: {value: searchPatternCSS, offset: -1}
-        },
-        ref: 'templates/**/*.css',
-    });
-
 
     _.each(dependencyIndex, function (name:string):void {
 
@@ -144,7 +133,7 @@ module.exports = function (moduleDef:any, options:any, callback:Function) {
                 var normalizeFilename:any = loadLib('normalize-filename');
                 var normalisedFile:string = normalizeFilename(file);
 
-                var styleRef:string = path.join(assetsRoot, name, normalisedFile);
+                var styleRef:string = path.join('styles/dependencies', name, normalisedFile);
                 styleRef = pathUrify(styleRef);
 
                 dependencyStatementCSS.push({dependency: dependency, ref: styleRef})

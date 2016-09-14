@@ -8,13 +8,14 @@ module.exports = function (moduleDef, options, callback) {
         return require(path.join(__dirname, libName));
     };
     var dependencies = moduleDef.clientDependencies;
+    var determineAssetSection = loadLib('determine-asset-section');
     var appRoot = options.appRoot || require('nx-app-root-path').path;
     var tasksRoot = path.join(appRoot, options.tasksDir);
     var pipelineScriptPath = path.join(tasksRoot, 'pipeline.js');
     var pipelineIndentation = '  ';
     var searchPatternJS = dependencies.injectionLineSelectorJS || '// Dependencies like jQuery, or Angular are brought in here';
     var searchPatternCSS = dependencies.injectionLineSelectorCSS || 'var cssFilesToInject = [';
-    var assetsRoot = 'js/dependencies';
+    var assetsRoot = '';
     var dependencyStatementJS = [];
     var dependencyStatementCSS = [];
     var dependencyIndex = _.sortBy(_.keys(dependencies), function (name) {
@@ -25,7 +26,7 @@ module.exports = function (moduleDef, options, callback) {
     _.each(dependencyIndex, function (name) {
         var dependency = dependencies[name];
         if (!dependency.files) {
-            var scriptRef = path.join(assetsRoot, name, name + '.js');
+            var scriptRef = path.join('js/dependencies', name, name + '.js');
             scriptRef = pathUrify(scriptRef);
             dependencyStatementJS.push({ dependency: dependency, ref: scriptRef });
         }
@@ -61,7 +62,7 @@ module.exports = function (moduleDef, options, callback) {
         dependency: {
             injectionLineSelectorJS: { value: '// All of the rest of your client-side js files', offset: -2 }
         },
-        ref: 'js/dependencies/**/*.js'
+        ref: 'js/dependencies/**/*.core.js'
     });
     dependencyStatementJS.push({
         dependency: {
@@ -99,25 +100,13 @@ module.exports = function (moduleDef, options, callback) {
         },
         ref: 'js/**/*.run.js'
     });
-    dependencyStatementCSS.push({
-        dependency: {
-            injectionLineSelectorCSS: { value: searchPatternCSS, offset: -1 }
-        },
-        ref: 'js/**/*.css'
-    });
-    dependencyStatementCSS.push({
-        dependency: {
-            injectionLineSelectorCSS: { value: searchPatternCSS, offset: -1 }
-        },
-        ref: 'templates/**/*.css'
-    });
     _.each(dependencyIndex, function (name) {
         var dependency = dependencies[name];
         if (dependency.files) {
             _.each(_.reverse(dependency.files), function (file) {
                 var normalizeFilename = loadLib('normalize-filename');
                 var normalisedFile = normalizeFilename(file);
-                var styleRef = path.join(assetsRoot, name, normalisedFile);
+                var styleRef = path.join('styles/dependencies', name, normalisedFile);
                 styleRef = pathUrify(styleRef);
                 dependencyStatementCSS.push({ dependency: dependency, ref: styleRef });
             });
