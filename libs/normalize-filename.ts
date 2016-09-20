@@ -3,6 +3,7 @@
 module.exports = function(fileName:string) : string {
 
     var result:string = fileName
+        .replace('build', '')
         .replace('dist', '')
         .replace('release', '');
 
