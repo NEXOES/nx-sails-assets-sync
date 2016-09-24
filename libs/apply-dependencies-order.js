@@ -132,7 +132,6 @@ module.exports = function (moduleDef, options, callback) {
                     var findLineIndex = loadLib('find-line-index');
                     var targetLineIndex = findLineIndex(lines, dependencyLine, searchPatternJS) + 1;
                     lines.splice(targetLineIndex, 0, dependencyLineOutput);
-                    console.log('Dependency being injected... ' + dependencyLineRef);
                 }
                 else {
                 }
@@ -149,7 +148,6 @@ module.exports = function (moduleDef, options, callback) {
                     var findLineIndex = loadLib('find-line-index');
                     var targetLineIndex = findLineIndex(lines, dependencyLine, searchPatternCSS) + 1;
                     lines.splice(targetLineIndex, 0, dependencyLineOutput);
-                    console.log('Dependency being injected... ' + dependencyLineRef);
                 }
                 else {
                 }

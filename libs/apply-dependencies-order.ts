@@ -173,7 +173,7 @@ module.exports = function (moduleDef:any, options:any, callback:Function) {
                     var targetLineIndex:number = findLineIndex(lines, dependencyLine, searchPatternJS) + 1;
 
                     lines.splice(targetLineIndex, 0, dependencyLineOutput);
-                    console.log('Dependency being injected... ' + dependencyLineRef);
+                    ///console.log('Dependency being injected... ' + dependencyLineRef);
                 }
                 else {
                     // console.log('Dependency already injected, leaving as is...')
@@ -199,7 +199,7 @@ module.exports = function (moduleDef:any, options:any, callback:Function) {
                     var targetLineIndex:number = findLineIndex(lines, dependencyLine, searchPatternCSS) + 1;
 
                     lines.splice(targetLineIndex, 0, dependencyLineOutput);
-                    console.log('Dependency being injected... ' + dependencyLineRef);
+                    //console.log('Dependency being injected... ' + dependencyLineRef);
                 }
                 else {
                     // console.log('Dependency already injected, leaving as is...')
