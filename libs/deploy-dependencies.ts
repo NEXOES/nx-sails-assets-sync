@@ -64,9 +64,15 @@ module.exports = function (moduleDef:any, options:any, callback:Function) {
 
                 async.mapSeries(filesToDeploy,
                     function (file:{target:string, destination:string}, nextFile:Function):void {
-                        fse.copy(file.target, file.destination, function (err:Error):void {
+
+                    fse.copy(file.target, file.destination, function (err:Error):void {
+
                             if (!err) {
-                                console.log('Asset Sync... '+ file.target +' --> '+ file.destination +'... success !');
+
+                                if (options.config.echo) {
+                                    console.log('Asset Sync... '+ file.target +' --> '+ file.destination +'... success !');
+                                }
+
                                 nextFile(null, file);
                             }
                             else {
