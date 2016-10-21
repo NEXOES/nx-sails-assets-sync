@@ -1,9 +1,11 @@
 /// <reference path="typings/index.d.ts" />
-/// <reference path="../typings/index.d.ts" />
+/// <reference path="../stengg-typings/index.d.ts" />
 
 import ISailsServer = sails.ISailsServer;
 import ISailsHookDefaults = sails.ISailsHookDefaults;
 import ISailsHookConfigure = sails.ISailsHookConfigure;
+import ISailsHook = sails.ISailsHook;
+import ISailsHookConfig = sails.ISailsHookConfig;
 
 var fs: any = require('fs-extra');
 var async: Async = require('async');

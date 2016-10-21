@@ -1,5 +1,5 @@
 /// <reference path="typings/index.d.ts" />
-/// <reference path="../typings/index.d.ts" />
+/// <reference path="../stengg-typings/index.d.ts" />
 var fs = require('fs-extra');
 var async = require('async');
 var _ = require('lodash');
