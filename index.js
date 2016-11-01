@@ -48,6 +48,12 @@ module.exports = function NXConvexConfig(sails) {
                     var ClientDependencies = require(path.join(__dirname, 'libs/client-dependencies'));
                     ClientDependencies(clientDependenciesSourceDir)
                         .then(function (clientDependencies) {
+                        console.log('========================================');
+                        console.log(NAME);
+                        console.log('...syncing the following:');
+                        console.log('----------------------------------------');
+                        console.dir(_.map(clientDependencies, 'name'));
+                        console.log('========================================');
                         nextAction(null, clientDependencies);
                     })
                         .catch(function (err) {
