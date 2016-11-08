@@ -62,23 +62,23 @@ module.exports = function (moduleDef, options, callback) {
         dependency: {
             injectionLineSelectorJS: { value: '// All of the rest of your client-side js files', offset: -2 }
         },
-        ref: 'js/dependencies/**/*.core.js'
+        ref: 'js/**/*.core.js'
     });
     dependencyStatementJS.push({
         dependency: {
-            injectionLineSelectorJS: { value: 'js/dependencies/**/*.js', offset: 0 }
+            injectionLineSelectorJS: { value: 'js/**/*.js', offset: 0 }
         },
-        ref: 'js/dependencies/**/*.init.js'
+        ref: 'js/**/*.init.js'
     });
     dependencyStatementJS.push({
         dependency: {
-            injectionLineSelectorJS: { value: 'js/dependencies/**/*.init.js', offset: 0 }
+            injectionLineSelectorJS: { value: 'js/**/*.init.js', offset: 0 }
         },
-        ref: 'js/dependencies/**/*.module.js'
+        ref: 'js/**/*.module.js'
     });
     dependencyStatementJS.push({
         dependency: {
-            injectionLineSelectorJS: { value: 'js/dependencies/**/*.module.js', offset: 0 }
+            injectionLineSelectorJS: { value: 'js/**/*.module.js', offset: 0 }
         },
         ref: 'js/**/*.module.js'
     });
